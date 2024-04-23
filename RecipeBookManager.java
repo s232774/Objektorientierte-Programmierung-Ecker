@@ -59,40 +59,42 @@ public class RecipeBookManager {
         printActionLog();
     }
 
-    // Methode zum Hinzufügen eines neuen Rezepts.
+    // Method to add a new recipe to the book.
     private static void addRecipe(Scanner scanner) {
+        // Check if the recipe book is full.
         if (recipeCount >= MAX_RECIPES) {
             System.out.println("Rezeptbuch ist voll.");
-            actionLog.add("Versuchte ein Rezept hinzuzufügen, aber das Buch war voll.");
             return;
         }
+        // Get recipe details from the user.
         System.out.println("Rezeptname:");
         String name = scanner.nextLine();
         System.out.println("Zutaten (durch Komma getrennt):");
         String ingredients = scanner.nextLine();
         System.out.println("Zubereitungsanweisungen:");
         String instructions = scanner.nextLine();
+
+        // Add the new recipe to the array and increment the count.
         recipes[recipeCount++] = new Recipe(name, ingredients, instructions);
         System.out.println("Rezept hinzugefügt.");
-        actionLog.add("Rezept hinzugefügt: " + name);
     }
 
-    // Methode zur Suche nach einem Rezept.
+    // Method to search for a recipe by name.
     private static String searchRecipe(String name) {
         for (Recipe recipe : recipes) {
+            // Check if recipe name matches and recipe is not null.
             if (recipe != null && recipe.getName().equalsIgnoreCase(name)) {
-                actionLog.add("Rezept gesucht und gefunden: " + name);
                 return recipe.toString();
             }
         }
-        actionLog.add("Rezept gesucht aber nicht gefunden: " + name);
         return "Rezept nicht gefunden.";
     }
 
-    // Methode zur Aktualisierung eines Rezepts.
+    // Method to update an existing recipe.
     private static void updateRecipe(Scanner scanner) {
         System.out.println("Geben Sie den Namen des Rezepts ein, das aktualisiert werden soll:");
         String name = scanner.nextLine();
+
         for (int i = 0; i < recipeCount; i++) {
             if (recipes[i] != null && recipes[i].getName().equalsIgnoreCase(name)) {
                 System.out.println("Neue Zutaten (durch Komma getrennt):");
@@ -100,31 +102,28 @@ public class RecipeBookManager {
                 System.out.println("Neue Zubereitungsanweisungen:");
                 recipes[i].setInstructions(scanner.nextLine());
                 System.out.println("Rezept aktualisiert.");
-                actionLog.add("Rezept aktualisiert: " + name);
                 return;
             }
         }
         System.out.println("Rezept nicht gefunden.");
-        actionLog.add("Versuchtes Update fehlgeschlagen: " + name);
     }
 
-    // Methode zum Löschen eines Rezepts.
+    // Method to delete a recipe.
     private static void deleteRecipe(Scanner scanner) {
         System.out.println("Geben Sie den Namen des Rezepts ein, das gelöscht werden soll:");
         String name = scanner.nextLine();
+
         for (int i = 0; i < recipeCount; i++) {
             if (recipes[i] != null && recipes[i].getName().equalsIgnoreCase(name)) {
                 recipes[i] = null;
                 System.out.println("Rezept gelöscht.");
-                actionLog.add("Rezept gelöscht: " + name);
                 return;
             }
         }
         System.out.println("Rezept nicht gefunden.");
-        actionLog.add("Versuchtes Löschen fehlgeschlagen: " + name);
     }
 
-    // Methode zur Anzeige des Aktionsprotokolls.
+    // Method to display all actions taken (optional and simpler without logging).
     private static void printActionLog() {
         System.out.println("Zusammenfassung der Aktionen:");
         for (String action : actionLog) {
@@ -133,32 +132,39 @@ public class RecipeBookManager {
     }
 
     // Innere Klasse, die ein Rezept repräsentiert.
+    // Definiert eine Rezeptklasse, um Details über ein Rezept zu speichern.
     static class Recipe {
+        // Variablen zum Speichern der Rezeptdetails.
         private String name;
         private String ingredients;
         private String instructions;
 
+        // Konstruktor zur Initialisierung der Rezeptdetails.
         public Recipe(String name, String ingredients, String instructions) {
             this.name = name;
             this.ingredients = ingredients;
             this.instructions = instructions;
         }
 
+        // Methode zum Aktualisieren der Zutaten des Rezepts.
         public void setIngredients(String ingredients) {
             this.ingredients = ingredients;
         }
 
+        // Methode zum Aktualisieren der Anweisungen des Rezepts.
         public void setInstructions(String instructions) {
             this.instructions = instructions;
         }
 
+        // Methode, um den Namen des Rezepts zu erhalten.
         public String getName() {
             return name;
         }
 
-        @Override
+        // Methode, um eine Zeichenkettenrepräsentation des Rezepts zurückzugeben.
         public String toString() {
             return "Name: " + name + "\nZutaten: " + ingredients + "\nZubereitung: " + instructions;
         }
     }
 }
+
