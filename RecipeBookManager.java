@@ -19,7 +19,7 @@ public class RecipeBookManager {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
-            System.out.println("Wählen Sie eine Option:");
+            System.out.println("Eine Option auswählen:");
             System.out.println("1. Rezept hinzufügen");
             System.out.println("2. Rezept suchen");
             System.out.println("3. Rezept aktualisieren");
@@ -44,7 +44,7 @@ public class RecipeBookManager {
                     running = false;
                     break;
                 default:
-                    System.out.println("Ungültige Auswahl. Bitte versuchen Sie es erneut.");
+                    System.out.println("Ungültige Auswahl. Versuchen Sie es erneut.");
                     break;
             }
         }
@@ -63,7 +63,7 @@ public class RecipeBookManager {
         int dishTypeOrdinal = scanner.nextInt() - 1;
         scanner.nextLine();  // Consume newline
         DishType dishType = DishType.values()[dishTypeOrdinal];
-        System.out.println("Zutaten (durch Komma getrennt):");
+        System.out.println("Zutaten:");
         String ingredients = scanner.nextLine();
         System.out.println("Zubereitungsanweisungen:");
         String instructions = scanner.nextLine();
@@ -73,7 +73,7 @@ public class RecipeBookManager {
 
     // Method to search for a recipe by name.
     private static void searchRecipe(Scanner scanner) {
-        System.out.println("Geben Sie den Namen des Rezepts ein:");
+        System.out.println("Den Namen des Rezepts eingeben:");
         String name = scanner.nextLine();
         for (Recipe recipe : recipes) {
             if (recipe != null && recipe.getName().equalsIgnoreCase(name)) {
@@ -86,11 +86,11 @@ public class RecipeBookManager {
 
     // Method to update an existing recipe.
     private static void updateRecipe(Scanner scanner) {
-        System.out.println("Geben Sie den Namen des Rezepts ein, das aktualisiert werden soll:");
+        System.out.println("Den Namen des Rezepts eingeben, das aktualisiert werden soll:");
         String name = scanner.nextLine();
         for (int i = 0; i < recipeCount; i++) {
             if (recipes[i] != null && recipes[i].getName().equalsIgnoreCase(name)) {
-                System.out.println("Neue Zutaten (durch Komma getrennt):");
+                System.out.println("Neue Zutaten:");
                 recipes[i].setIngredients(scanner.nextLine());
                 System.out.println("Neue Zubereitungsanweisungen:");
                 recipes[i].setInstructions(scanner.nextLine());
@@ -103,7 +103,7 @@ public class RecipeBookManager {
 
     // Method to delete a recipe.
     private static void deleteRecipe(Scanner scanner) {
-        System.out.println("Geben Sie den Namen des Rezepts ein, das gelöscht werden soll:");
+        System.out.println("Den Namen des Rezepts eingeben, das gelöscht werden soll:");
         String name = scanner.nextLine();
         for (int i = 0; i < recipeCount; i++) {
             if (recipes[i] != null && recipes[i].getName().equalsIgnoreCase(name)) {
